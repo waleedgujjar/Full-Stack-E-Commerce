@@ -1,12 +1,10 @@
-import React, { useState , Fragment} from 'react';
+import React, { useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  
   increment,
   incrementAsync,
   selectCount,
 } from './productListSlice';
-
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
@@ -18,13 +16,7 @@ const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
 ]
-const subCategories = [
-  { name: 'Totes', href: '#' },
-  { name: 'Backpacks', href: '#' },
-  { name: 'Travel Bags', href: '#' },
-  { name: 'Hip Bags', href: '#' },
-  { name: 'Laptop Sleeves', href: '#' },
-]
+
 const filters = [
   {
     id: 'color',
@@ -63,28 +55,39 @@ const filters = [
   },
 ]
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 const products = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
-  {
-    id: 2,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
-    color: 'Black',
-  },
- 
-]
-
+    {
+      id: 1,
+      name: 'Basic Tee',
+      href: '#',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+      imageAlt: "Front of men's Basic Tee in black.",
+      price: '$35',
+      color: 'Black',
+    },
+    {
+        id: 2,
+        name: 'Basic Tee',
+        href: '#',
+        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+        imageAlt: "Front of men's Basic Tee in black.",
+        price: '$35',
+        color: 'Black',
+      },
+    {
+        id: 3,
+        name: 'Basic Tee',
+        href: '#',
+        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+        imageAlt: "Front of men's Basic Tee in black.",
+        price: '$35',
+        color: 'Black',
+      },
+  ]
+  
 
 export default function ProductList() {
   const count = useSelector(selectCount);
@@ -95,8 +98,7 @@ export default function ProductList() {
   return (
     <div>
       <div>
-
- <div className="bg-white">
+      <div className="bg-white">
       <div>
         {/* Mobile filter dialog */}
         <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -138,16 +140,7 @@ export default function ProductList() {
 
                   {/* Filters */}
                   <form className="mt-4 border-t border-gray-200">
-                    <h3 className="sr-only">Categories</h3>
-                    <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {subCategories.map((category) => (
-                        <li key={category.name}>
-                          <a href={category.href} className="block px-2 py-3">
-                            {category.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                
 
                     {filters.map((section) => (
                       <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
@@ -226,20 +219,18 @@ export default function ProductList() {
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
-                         <Menu.Item key={option.name}>
+                        <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <p
-                              onClick={(e) => handleSort(e, option)}
+                            <a
+                              href={option.href}
                               className={classNames(
-                                option.current
-                                  ? 'font-medium text-gray-900'
-                                  : 'text-gray-500',
+                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
                                 'block px-4 py-2 text-sm'
                               )}
                             >
                               {option.name}
-                            </p>
+                            </a>
                           )}
                         </Menu.Item>
                       ))}
@@ -271,14 +262,7 @@ export default function ProductList() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
-                <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href}>{category.name}</a>
-                    </li>
-                  ))}
-                </ul>
+             
 
                 {filters.map((section) => (
                   <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
@@ -325,7 +309,9 @@ export default function ProductList() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3"> <div className="bg-white">
+              <div className="lg:col-span-3">
+                   {/*This is our products list */}
+      <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
 
@@ -356,14 +342,12 @@ export default function ProductList() {
         </div>
       </div>
     </div>
-    </div>
+              </div>
             </div>
           </section>
         </main>
       </div>
     </div>
-
-     { /*This is Our Products list*/}
      
       </div>
     </div>
